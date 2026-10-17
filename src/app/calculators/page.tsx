@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Calculators",
-  description: "Simple investing calculators for personal research — SIP and more.",
+  description: "Simple investing and loan calculators for personal research — SIP, EMI, and more.",
 };
 
 const CALCULATORS = [
@@ -11,6 +11,11 @@ const CALCULATORS = [
     href: "/calculators/sip",
     title: "SIP calculator",
     summary: "Monthly investment, years, and expected return → estimated maturity value.",
+  },
+  {
+    href: "/calculators/emi",
+    title: "EMI / loan calculator",
+    summary: "Loan amount, rate, and tenure → EMI, interest, principal, and full installment schedule.",
   },
 ];
 
@@ -20,7 +25,7 @@ export default function CalculatorsPage() {
       <header className="mb-8">
         <h1 className="font-serif text-4xl tracking-tight">Calculators</h1>
         <p className="mt-3 text-[var(--muted)]">
-          Tools for your own research. Estimates only — not advice and not a guarantee of returns.
+          Tools for your own research. Estimates only — not advice and not a bank or product quote.
         </p>
       </header>
 
