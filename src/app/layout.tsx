@@ -19,7 +19,7 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://marketnotes.local"),
+  metadataBase: new URL("https://bullveda.com"),
   title: {
     default: SITE_NAME,
     template: `%s · ${SITE_NAME}`,
