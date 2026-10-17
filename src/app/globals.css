@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-paper: #f3efe6;
+  --color-cream: #fffdf8;
+  --color-ink: #1c1a16;
+  --color-forest: #1f4a3c;
+  --color-forest-soft: #2d6a56;
+  --color-muted: #6b6458;
+  --color-line: #ddd6c8;
+  --color-chip: #e8e1d4;
+  --font-serif: var(--font-newsreader);
+  --font-sans: var(--font-source-sans);
+}
+
+:root {
+  --bg: #f3efe6;
+  --surface: #fffdf8;
+  --text: #1c1a16;
+  --muted: #6b6458;
+  --accent: #1f4a3c;
+  --line: #ddd6c8;
+  --chip: #e8e1d4;
+}
+
+.dark {
+  --bg: #16130f;
+  --surface: #1f1b16;
+  --text: #eee8dc;
+  --muted: #b3ab9c;
+  --accent: #9ec9b6;
+  --line: #3a342b;
+  --chip: #2a251f;
+}
+
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.note-body {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.note-body > * + * {
+  margin-top: 1.15em;
+}
+
+.note-body h2 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.45rem;
+  line-height: 1.3;
+  font-weight: 600;
+  margin-top: 1.8em;
+}
+
+.note-body h3 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1.35;
+  font-weight: 600;
+  margin-top: 1.5em;
+}
+
+.note-body a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+  text-decoration: underline;
+}
+
+.note-body ul,
+.note-body ol {
+  padding-left: 1.25rem;
+}
+
+.note-body ul {
+  list-style: disc;
+}
+
+.note-body ol {
+  list-style: decimal;
+}
+
+.note-body li + li {
+  margin-top: 0.35em;
+}
+
+.note-body blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.note-body code {
+  font-size: 0.9em;
+  background: var(--chip);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+.note-body pre {
+  background: var(--chip);
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 10px;
+}
+
+.note-body pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.note-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.note-body th,
+.note-body td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.5rem 0.4rem;
+  text-align: left;
+}
+
+.note-body hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+}
