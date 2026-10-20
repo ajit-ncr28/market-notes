@@ -5,7 +5,7 @@ type: blog
 stock: RELIANCE
 sector: Energy
 tags: [o2c, retail, jio, conglomerate]
-youtube: https://www.youtube.com/watch?v=aqz-KE-bpKQ
+youtube: https://youtu.be/ZzA2tLXkxFA
 summary: The energy cycle still sets the quarterly noise. The longer note is how O2C cash, retail scale, and digital cash flows share one balance sheet.
 ---
 
