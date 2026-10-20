@@ -5,7 +5,7 @@ type: data
 stock: TCS
 sector: IT
 tags: [it-services, tcv, attrition, margins]
-youtube: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+youtube: (https://youtu.be/p7Q1-vJ56vU)
 summary: Large-deal TCV keeps the conversation going. I am mapping it against utilisation, subcon, and the junior-heavy pyramid to see whether growth is turning into margin.
 ---
 
