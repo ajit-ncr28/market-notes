@@ -5,7 +5,7 @@ export const SITE_DESCRIPTION =
   "A personal research notebook on Indian stocks, sectors, and market data. Not investment advice.";
 
 /** Replace this with your channel URL before running the site. */
-export const YOUTUBE_CHANNEL_URL = "YOUR_YOUTUBE_CHANNEL_URL";
+export const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@BullvedaByAjit";
 
 export const NOTE_TYPES = ["blog", "observation", "experience", "data"] as const;
 export type NoteType = (typeof NOTE_TYPES)[number];
