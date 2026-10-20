@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SITE_NAME, http://www.youtube.com/@BullvedaByAjit } from "@/lib/constants";
+import { SITE_NAME, YOUTUBE_CHANNEL_URL } from "@/lib/constants";
 import { ThemeToggle } from "./ThemeToggle";
 
 const NAV = [
@@ -28,7 +28,7 @@ export function Header() {
             </Link>
           ))}
           <a
-            href={http://www.youtube.com/@BullvedaByAjit}
+            href={YOUTUBE_CHANNEL_URL}
             target="_blank"
             rel="noreferrer"
             className="hidden rounded-full px-2.5 py-1 text-[var(--muted)] transition hover:text-[var(--accent)] sm:inline"
