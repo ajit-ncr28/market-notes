@@ -1,7 +1,7 @@
 ---
 title: "Jio Platforms IPO: Scale, Valuation, and the Hype"
 date: 2026-10-20
-type: observation
+type: blog
 stock: RELIANCE
 sector: Telecom
 tags: [ipo, jio, telecom, reliance, valuation]
