@@ -1,4 +1,4 @@
-import { http://www.youtube.com/@BullvedaByAjit } from "@/lib/constants";
+import { YOUTUBE_CHANNEL_URL } from "@/lib/constants";
 
 export function Footer() {
   return (
@@ -6,7 +6,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-5xl flex-col gap-2 px-4 py-8 text-sm text-[var(--muted)] sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <p>Personal research notes. Not investment advice.</p>
         <a
-          href={http://www.youtube.com/@BullvedaByAjit}
+          href={YOUTUBE_CHANNEL_URL}
           target="_blank"
           rel="noreferrer"
           className="text-[var(--accent)] underline-offset-4 hover:underline"
