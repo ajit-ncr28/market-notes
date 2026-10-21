@@ -49,7 +49,6 @@ export function RetirementCalculator() {
     const monthlyInf = Math.pow(1 + inf, 1 / 12) - 1;
     const monthlyRet = Math.pow(1 + r, 1 / 12) - 1;
 
-    // Binary search for lumpsum
     let low = 0;
     let high = need * months * 5;
     for (let i = 0; i < 45; i++) {
@@ -71,7 +70,6 @@ export function RetirementCalculator() {
     }
     const lumpsumToday = (low + high) / 2;
 
-    // Yearly snapshot for chart + table
     const yearly: { age: number; withdrawal: number; balance: number }[] = [];
     let bal = lumpsumToday;
     let expense = need;
@@ -138,7 +136,6 @@ export function RetirementCalculator() {
     });
   }, [monthlyNeed, inflation, currentAge, lifeExpectancy]);
 
-  // Simple SVG chart data
   const chart = useMemo(() => {
     if (!result?.yearly.length) return null;
     const data = result.yearly;
@@ -364,4 +361,3 @@ function ResultRow({
     </div>
   );
 }
-
