@@ -17,8 +17,12 @@ const CALCULATORS = [
     title: "EMI / loan calculator",
     summary: "Loan amount, rate, and tenure → EMI, interest, principal, and full installment schedule.",
   },
+  {
+    href: "/calculators/retirement",
+    title: "Retirement / financial freedom",
+    summary: "Lumpsum needed today so you can start withdrawing a monthly amount immediately, with step-up at inflation, lasting till a chosen age.",
+  },
 ];
-
 export default function CalculatorsPage() {
   return (
     <div className="mx-auto max-w-[680px]">
