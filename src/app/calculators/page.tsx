@@ -22,6 +22,11 @@ const CALCULATORS = [
     title: "Retirement / financial freedom",
     summary: "Lumpsum needed today so you can start withdrawing a monthly amount immediately, with step-up at inflation, lasting till a chosen age.",
   },
+    {
+    href: "/calculators/fv",
+    title: "Future Value calculator",
+    summary: "Present value growing at a given annual rate for a certain number of years → future value, with compounding options, table and graph.",
+  },
 ];
 export default function CalculatorsPage() {
   return (
