@@ -1,4 +1,4 @@
-import type { NoteType } from "./constants";
+import type { NoteType, EventType } from "./constants";
 
 export type NoteFrontmatter = {
   title: string;
@@ -10,6 +10,8 @@ export type NoteFrontmatter = {
   youtube?: string;
   summary: string;
   pinned?: boolean;
+  event?: EventType | string;
+  public?: boolean;
 };
 
 export type Note = NoteFrontmatter & {

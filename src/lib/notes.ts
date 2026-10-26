@@ -12,7 +12,9 @@ function isNoteType(value: unknown): value is NoteType {
     value === "blog" ||
     value === "observation" ||
     value === "experience" ||
-    value === "data"
+    value === "data" ||
+    value === "trade" ||
+    value === "snapshot"
   );
 }
 
@@ -51,6 +53,8 @@ function parseFrontmatter(data: Record<string, unknown>, slug: string): NoteFron
     youtube: typeof data.youtube === "string" ? data.youtube : undefined,
     summary: data.summary,
     pinned: data.pinned === true,
+    event: typeof data.event === "string" ? data.event : undefined,
+    public: data.public === true,
   };
 }
 
