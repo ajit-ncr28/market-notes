@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { NOTE_TYPES, SECTORS, TYPE_LABELS, type NoteType } from "@/lib/constants";
+import { NOTE_TYPES, SECTORS, EVENTS, TYPE_LABELS, type NoteType } from "@/lib/constants";
 import type { NoteCardData } from "@/lib/notes";
 import { NoteCard } from "./NoteCard";
 
@@ -13,6 +13,8 @@ type Props = {
   initialType?: string;
   initialSector?: string;
   initialStock?: string;
+  showToggle?: boolean;
+  onToggle?: (slug: string) => void;
 };
 
 export function NotesExplorer({
@@ -23,11 +25,14 @@ export function NotesExplorer({
   initialType = "all",
   initialSector = "",
   initialStock = "",
+  showToggle = false,
+  onToggle,
 }: Props) {
   const [query, setQuery] = useState(initialQuery);
   const [type, setType] = useState<string>(initialType || "all");
   const [sector, setSector] = useState(initialSector);
   const [stock, setStock] = useState(initialStock);
+  const [eventFilter, setEventFilter] = useState("");
   const [sort, setSort] = useState<"newest" | "oldest">("newest");
 
   useEffect(() => {
@@ -52,6 +57,7 @@ export function NotesExplorer({
       if (type !== "all" && note.type !== type) return false;
       if (sector && note.sector !== sector) return false;
       if (stock && note.stock !== stock) return false;
+      if (eventFilter && note.event !== eventFilter) return false;
       if (!q) return true;
       const haystack = [
         note.title,
@@ -67,7 +73,7 @@ export function NotesExplorer({
     return [...list].sort((a, b) =>
       sort === "newest" ? (a.date < b.date ? 1 : -1) : a.date > b.date ? 1 : -1,
     );
-  }, [notes, query, type, sector, stock, sort]);
+  }, [notes, query, type, sector, stock, eventFilter, sort]);
 
   const pinned = showPinned ? notes.find((note) => note.pinned) : undefined;
 
@@ -135,6 +141,17 @@ export function NotesExplorer({
             </div>
           ) : null}
 
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            <Chip active={!eventFilter} onClick={() => setEventFilter("")}>
+              All events
+            </Chip>
+            {EVENTS.map((item) => (
+              <Chip key={item} active={eventFilter === item} onClick={() => setEventFilter(item)}>
+                {item}
+              </Chip>
+            ))}
+          </div>
+
           <div className="flex items-center justify-between text-sm text-[var(--muted)]">
             <p>
               {filtered.length} {filtered.length === 1 ? "note" : "notes"}
@@ -172,7 +189,13 @@ export function NotesExplorer({
       ) : (
         <div className="grid gap-4">
           {filtered.map((note) => (
-            <NoteCard key={note.slug} note={note} onMetaClick={onMetaClick} />
+            <NoteCard
+              key={note.slug}
+              note={note}
+              onMetaClick={onMetaClick}
+              showToggle={showToggle}
+              onToggle={onToggle}
+            />
           ))}
         </div>
       )}
