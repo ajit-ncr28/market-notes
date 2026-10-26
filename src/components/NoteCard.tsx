@@ -13,9 +13,13 @@ function formatDate(date: string) {
 export function NoteCard({
   note,
   onMetaClick,
+  showToggle,
+  onToggle,
 }: {
   note: NoteCardData;
   onMetaClick?: (kind: "stock" | "sector", value: string) => void;
+  showToggle?: boolean;
+  onToggle?: (slug: string) => void;
 }) {
   return (
     <article className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5 transition hover:border-[var(--accent)]/40">
@@ -65,6 +69,21 @@ export function NoteCard({
         </Link>
       </h2>
       <p className="mt-2 text-[0.95rem] leading-relaxed text-[var(--muted)]">{note.summary}</p>
+      {showToggle && onToggle ? (
+        <div className="mt-4 flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => onToggle(note.slug)}
+            className={`rounded-full px-3 py-1 text-xs font-medium transition ${
+              note.public
+                ? "bg-[var(--accent)] text-white"
+                : "border border-[var(--line)] text-[var(--muted)] hover:text-[var(--text)]"
+            }`}
+          >
+            {note.public ? "Public" : "Make public"}
+          </button>
+        </div>
+      ) : null}
     </article>
   );
 }
