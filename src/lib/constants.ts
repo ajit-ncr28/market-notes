@@ -1,6 +1,6 @@
 export const SITE_NAME = "BullVeda";
 export const SITE_TAGLINE =
-  "Full-time trader’s research on Indian equities, ETFs, mutual funds and long-term wealth creation.";
+  "Research-led notes on short-term market impact, selective equities, and trading ideas.";
 export const SITE_DESCRIPTION =
   "Research notes and market observations from a full-time trader and IIFL sub-broker. Focus on selective equities, ETFs, SIPs, financial planning and disciplined investing. Not investment advice.";
 
