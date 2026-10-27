@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { approveEmail } from "@/app/actions/approveEmail";
 
 export default async function RequestsPage() {
   const session = await auth();
@@ -24,6 +25,14 @@ export default async function RequestsPage() {
               <p className="font-medium">{r.name} — {r.email}</p>
               {r.message && <p className="mt-1 text-sm text-[var(--muted)]">{r.message}</p>}
               <p className="mt-2 text-xs text-[var(--muted)]">{new Date(r.createdAt).toLocaleString()}</p>
+              <form action={approveEmail.bind(null, r.email)} className="mt-3">
+                <button
+                  type="submit"
+                  className="rounded-lg bg-[var(--accent)] px-4 py-1.5 text-sm text-white"
+                >
+                  Approve
+                </button>
+              </form>
             </li>
           ))}
         </ul>
