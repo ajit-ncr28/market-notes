@@ -1,11 +1,34 @@
 "use client";
 
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const result = await signIn("resend", {
+      email,
+      redirect: false,
+      callbackUrl: "/journal",
+    });
+
+    setLoading(false);
+
+    if (result?.error) {
+      setError("This email is not approved yet. Access is given on request only.");
+    } else {
+      setSent(true);
+    }
+  }
 
   return (
     <div className="mx-auto max-w-sm">
@@ -19,13 +42,7 @@ export default function LoginPage() {
           Check your inbox for the login link.
         </div>
       ) : (
-        <form
-          method="POST"
-          action="/api/auth/signin/resend"
-          className="mt-6 space-y-4"
-          onSubmit={() => setSent(true)}
-        >
-          <input type="hidden" name="callbackUrl" value="/journal" />
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <input
             type="text"
             required
@@ -36,18 +53,19 @@ export default function LoginPage() {
           />
           <input
             type="email"
-            name="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your email"
             className="w-full rounded-xl border border-[var(--line)] bg-[var(--bg)] px-4 py-2.5 outline-none ring-[var(--accent)] focus:ring-2"
           />
+          {error && <p className="text-sm text-red-600">{error}</p>}
           <button
             type="submit"
-            className="w-full rounded-xl bg-[var(--accent)] px-5 py-2.5 text-white transition hover:opacity-90"
+            disabled={loading}
+            className="w-full rounded-xl bg-[var(--accent)] px-5 py-2.5 text-white transition hover:opacity-90 disabled:opacity-60"
           >
-            Send login link
+            {loading ? "Sending…" : "Send login link"}
           </button>
         </form>
       )}
