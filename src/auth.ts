@@ -6,7 +6,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Resend({
       apiKey: process.env.AUTH_RESEND_KEY,
-      from: "BullVeda <onboarding@resend.dev>",
+      from: "BullVeda <login@bullveda.com>",
     }),
   ],
   callbacks: {
