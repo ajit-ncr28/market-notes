@@ -5,12 +5,12 @@ import { isApprovedEmail } from "./lib/approved-emails";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Resend({
-      from: "BullVeda <onboarding@resend.dev>", // Update this after Resend setup
+      apiKey: process.env.AUTH_RESEND_KEY,
+      from: "BullVeda <onboarding@resend.dev>",
     }),
   ],
   callbacks: {
     async signIn({ user }) {
-      // Only allow approved emails
       return isApprovedEmail(user.email);
     },
     async session({ session }) {
@@ -21,4 +21,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/login",
     error: "/login",
   },
+  secret: process.env.AUTH_SECRET,
 });
