@@ -17,7 +17,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user }) {
-      return isApprovedEmail(user.email);
+      // Temporarily allow all emails so we can confirm the magic link is sent.
+      // Approval check will be re-enabled after testing.
+      console.log("Sign-in attempt for:", user.email);
+      return true;
     },
     async session({ session }) {
       return session;
