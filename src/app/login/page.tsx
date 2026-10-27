@@ -61,9 +61,17 @@ export default function LoginPage() {
         </form>
       )}
 
-      <p className="mt-6 text-xs text-[var(--muted)]">
-        Access is given on request. Contact the site owner if you need entry.
-      </p>
+      <div className="mt-8 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5 text-sm">
+        <p className="font-medium">Request access</p>
+        <p className="mt-2 text-[var(--muted)]">
+          Journal access is given on request only. Email me with your name and a short note on why you would like access. I will add approved emails manually.
+        </p>
+        <p className="mt-3">
+          <a href="mailto:ajit772021@gmail.com" className="text-[var(--accent)] underline">
+            ajit772021@gmail.com
+          </a>
+        </p>
+      </div>
     </div>
   );
 }
