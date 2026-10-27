@@ -73,7 +73,7 @@ export default function LoginPage() {
       <div className="mt-8 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5 text-sm">
         <p className="font-medium">Request access</p>
         <p className="mt-2 text-[var(--muted)]">
-          Access to the private Journal is given on request. Fill in your name and email above, then send a short note explaining why you would like access. Approved requests will be added manually.
+          The public notes are only part of the story. The private Journal holds the trade details, observations, and live thinking behind selective positions. Access is given on request only.
         </p>
       </div>
     </div>
