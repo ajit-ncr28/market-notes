@@ -1,13 +1,24 @@
-// Add emails here that are allowed to view private Journal notes.
-// Later this can be replaced by a database or subscription system.
-export const APPROVED_EMAILS = [
+import { prisma } from "./prisma";
+
+// Hardcoded emails (always approved)
+const HARDCODED = [
   "ajit772021@gmail.com",
   "ajit72021@gmail.com",
   "ajit772025@gmail.com",
-  // "client@example.com",
 ];
 
-export function isApprovedEmail(email: string | null | undefined): boolean {
+export async function isApprovedEmail(email: string | null | undefined): Promise<boolean> {
   if (!email) return false;
-  return APPROVED_EMAILS.map((e) => e.toLowerCase()).includes(email.toLowerCase());
+  const lower = email.toLowerCase();
+  if (HARDCODED.includes(lower)) return true;
+
+  try {
+    const result = await prisma.$queryRawUnsafe<Array<{ email: string }>>(
+      `SELECT email FROM "ApprovedEmail" WHERE email = $1 LIMIT 1`,
+      lower
+    );
+    return result.length > 0;
+  } catch {
+    return false;
+  }
 }
