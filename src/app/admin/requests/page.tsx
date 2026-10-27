@@ -9,9 +9,14 @@ export default async function RequestsPage() {
     redirect("/login");
   }
 
-  const requests = await prisma.$queryRawUnsafe<Array<{ id: string; name: string; email: string; message: string; createdAt: Date }>>(
-    `SELECT id, name, email, message, "createdAt" FROM "AccessRequest" ORDER BY "createdAt" DESC`
-  );
+  let requests: Array<{ id: string; name: string; email: string; message: string; createdAt: Date }> = [];
+  try {
+    requests = await prisma.$queryRawUnsafe(
+      `SELECT id, name, email, message, "createdAt" FROM "AccessRequest" ORDER BY "createdAt" DESC`
+    );
+  } catch {
+    // table may not exist yet
+  }
 
   return (
     <div>
@@ -25,7 +30,8 @@ export default async function RequestsPage() {
               <p className="font-medium">{r.name} — {r.email}</p>
               {r.message && <p className="mt-1 text-sm text-[var(--muted)]">{r.message}</p>}
               <p className="mt-2 text-xs text-[var(--muted)]">{new Date(r.createdAt).toLocaleString()}</p>
-              <form action={approveEmail.bind(null, r.email)} className="mt-3">
+              <form action={approveEmail} className="mt-3">
+                <input type="hidden" name="email" value={r.email} />
                 <button
                   type="submit"
                   className="rounded-lg bg-[var(--accent)] px-4 py-1.5 text-sm text-white"
