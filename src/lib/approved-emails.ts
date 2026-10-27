@@ -3,6 +3,7 @@
 export const APPROVED_EMAILS = [
   "ajit772021@gmail.com",
   "ajit72021@gmail.com",
+  "ajit772025@gmail.com",
   // "client@example.com",
 ];
 
