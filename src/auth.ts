@@ -28,7 +28,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user }) {
-      return isApprovedEmail(user.email);
+      return await isApprovedEmail(user.email);
     },
     async session({ session }) {
       return session;
