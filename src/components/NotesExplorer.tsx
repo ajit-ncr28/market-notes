@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { NOTE_TYPES, SECTORS, EVENTS, TYPE_LABELS, type NoteType } from "@/lib/constants";
+import { NOTE_TYPES, TYPE_LABELS, type NoteType } from "@/lib/constants";
 import type { NoteCardData } from "@/lib/notes";
 import { NoteCard } from "./NoteCard";
 
@@ -32,7 +32,6 @@ export function NotesExplorer({
   const [type, setType] = useState<string>(initialType || "all");
   const [sector, setSector] = useState(initialSector);
   const [stock, setStock] = useState(initialStock);
-  const [eventFilter, setEventFilter] = useState("");
   const [sort, setSort] = useState<"newest" | "oldest">("newest");
 
   useEffect(() => {
@@ -55,9 +54,7 @@ export function NotesExplorer({
     const q = query.trim().toLowerCase();
     const list = notes.filter((note) => {
       if (type !== "all" && note.type !== type) return false;
-      if (sector && note.sector !== sector) return false;
       if (stock && note.stock !== stock) return false;
-      if (eventFilter && note.event !== eventFilter) return false;
       if (!q) return true;
       const haystack = [
         note.title,
@@ -73,7 +70,7 @@ export function NotesExplorer({
     return [...list].sort((a, b) =>
       sort === "newest" ? (a.date < b.date ? 1 : -1) : a.date > b.date ? 1 : -1,
     );
-  }, [notes, query, type, sector, stock, eventFilter, sort]);
+  }, [notes, query, type, stock, sort]);
 
   const pinned = showPinned ? notes.find((note) => note.pinned) : undefined;
 
@@ -112,26 +109,10 @@ export function NotesExplorer({
             ))}
           </div>
 
-          <div className="flex gap-2 overflow-x-auto pb-1">
-            <Chip
-              active={!sector}
-              onClick={() => {
-                setSector("");
-              }}
-            >
-              All sectors
-            </Chip>
-            {SECTORS.map((item) => (
-              <Chip key={item} active={sector === item} onClick={() => setSector(item)}>
-                {item}
-              </Chip>
-            ))}
-          </div>
-
           {stocks.length > 0 ? (
             <div className="flex gap-2 overflow-x-auto pb-1">
               <Chip active={!stock} onClick={() => setStock("")}>
-                All stocks
+                All scripts
               </Chip>
               {stocks.map((item) => (
                 <Chip key={item} active={stock === item} onClick={() => setStock(item)}>
@@ -141,22 +122,10 @@ export function NotesExplorer({
             </div>
           ) : null}
 
-          <div className="flex gap-2 overflow-x-auto pb-1">
-            <Chip active={!eventFilter} onClick={() => setEventFilter("")}>
-              All events
-            </Chip>
-            {EVENTS.map((item) => (
-              <Chip key={item} active={eventFilter === item} onClick={() => setEventFilter(item)}>
-                {item}
-              </Chip>
-            ))}
-          </div>
-
           <div className="flex items-center justify-between text-sm text-[var(--muted)]">
             <p>
               {filtered.length} {filtered.length === 1 ? "note" : "notes"}
               {stock ? ` · ${stock}` : ""}
-              {sector ? ` · ${sector}` : ""}
             </p>
             <label className="flex items-center gap-2">
               <span className="sr-only">Sort</span>
@@ -173,7 +142,7 @@ export function NotesExplorer({
         </div>
       </div>
 
-      {pinned && type === "all" && !query && !sector && !stock ? (
+      {pinned && type === "all" && !query && !stock ? (
         <div className="mb-6">
           <p className="mb-2 text-xs uppercase tracking-[0.14em] text-[var(--muted)]">Pinned</p>
           <NoteCard note={pinned} onMetaClick={onMetaClick} />
