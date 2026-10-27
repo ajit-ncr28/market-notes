@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -23,7 +24,7 @@ export default function LoginPage() {
     setLoading(false);
 
     if (result?.error) {
-      setError("This email is not approved yet. Please request access.");
+      setError("This email is not approved yet. Please request access below.");
     } else {
       setSent(true);
     }
@@ -33,7 +34,7 @@ export default function LoginPage() {
     <div className="mx-auto max-w-sm">
       <h1 className="font-serif text-3xl tracking-tight">Journal access</h1>
       <p className="mt-2 text-[var(--muted)]">
-        Enter your email. If it is approved, you will receive a login link.
+        Enter your name and email. If your email is approved, you will receive a login link.
       </p>
 
       {sent ? (
@@ -42,6 +43,14 @@ export default function LoginPage() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          <input
+            type="text"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Your name"
+            className="w-full rounded-xl border border-[var(--line)] bg-[var(--bg)] px-4 py-2.5 outline-none ring-[var(--accent)] focus:ring-2"
+          />
           <input
             type="email"
             required
@@ -64,12 +73,7 @@ export default function LoginPage() {
       <div className="mt-8 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5 text-sm">
         <p className="font-medium">Request access</p>
         <p className="mt-2 text-[var(--muted)]">
-          Journal access is given on request only. Email me with your name and a short note on why you would like access. I will add approved emails manually.
-        </p>
-        <p className="mt-3">
-          <a href="mailto:ajit772021@gmail.com" className="text-[var(--accent)] underline">
-            ajit772021@gmail.com
-          </a>
+          Access to the private Journal is given on request. Fill in your name and email above, then send a short note explaining why you would like access. Approved requests will be added manually.
         </p>
       </div>
     </div>
