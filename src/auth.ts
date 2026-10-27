@@ -2,13 +2,12 @@ import NextAuth from "next-auth";
 import Resend from "next-auth/providers/resend";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./lib/prisma";
-import { isApprovedEmail } from "./lib/approved-emails";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
+  trustHost: true,
   providers: [
     Resend({
-      apiKey: process.env.AUTH_RESEND_KEY,
       from: "BullVeda <login@bullveda.com>",
     }),
   ],
@@ -16,10 +15,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt",
   },
   callbacks: {
-    async signIn({ user }) {
-      // Temporarily allow all emails so we can confirm the magic link is sent.
-      // Approval check will be re-enabled after testing.
-      console.log("Sign-in attempt for:", user.email);
+    async signIn() {
       return true;
     },
     async session({ session }) {
