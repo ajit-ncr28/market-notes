@@ -3,6 +3,7 @@ import Resend from "next-auth/providers/resend";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./lib/prisma";
 import { Resend as ResendClient } from "resend";
+import { isApprovedEmail } from "./lib/approved-emails";
 
 const resend = new ResendClient(process.env.AUTH_RESEND_KEY);
 
@@ -26,8 +27,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt",
   },
   callbacks: {
-    async signIn() {
-      return true;
+    async signIn({ user }) {
+      return isApprovedEmail(user.email);
     },
     async session({ session }) {
       return session;
