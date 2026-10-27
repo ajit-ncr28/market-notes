@@ -2,6 +2,7 @@
 // Later this can be replaced by a database or subscription system.
 export const APPROVED_EMAILS = [
   "ajit772021@gmail.com",
+  "ajit72021@gmail.com",
   // "client@example.com",
 ];
 
