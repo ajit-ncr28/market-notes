@@ -24,7 +24,7 @@ export default function LoginPage() {
     setLoading(false);
 
     if (result?.error) {
-      setError("This email is not approved yet. Please request access below.");
+      setError(`Error: ${result.error}`);
     } else {
       setSent(true);
     }
