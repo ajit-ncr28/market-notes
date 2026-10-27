@@ -9,7 +9,9 @@ export const metadata: Metadata = {
 
 export default function JournalPage() {
   const notes = getAllNotes()
-    .filter((note) => note.type === "trade" || note.type === "snapshot" || note.type === "blog")
+    .filter((note) =>
+      ["blog", "news", "strategy", "snapshot", "event"].includes(note.type)
+    )
     .map(toCardData);
 
   return (
