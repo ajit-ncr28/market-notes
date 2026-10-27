@@ -10,11 +10,10 @@ const NOTES_DIR = path.join(process.cwd(), "content", "notes");
 function isNoteType(value: unknown): value is NoteType {
   return (
     value === "blog" ||
-    value === "observation" ||
-    value === "experience" ||
-    value === "data" ||
-    value === "trade" ||
-    value === "snapshot"
+    value === "news" ||
+    value === "strategy" ||
+    value === "snapshot" ||
+    value === "event"
   );
 }
 
