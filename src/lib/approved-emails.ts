@@ -1,7 +1,7 @@
 // Add emails here that are allowed to view private Journal notes.
 // Later this can be replaced by a database or subscription system.
 export const APPROVED_EMAILS = [
-  "your-email@example.com", // Replace with your own email
+  "ajit772021@gmail.com",
   // "client@example.com",
 ];
 
