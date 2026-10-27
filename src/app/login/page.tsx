@@ -1,34 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    const result = await signIn("resend", {
-      email,
-      redirect: false,
-      callbackUrl: "/journal",
-    });
-
-    setLoading(false);
-
-    if (result?.error) {
-      setError(`Error: ${result.error}`);
-    } else {
-      setSent(true);
-    }
-  }
 
   return (
     <div className="mx-auto max-w-sm">
@@ -42,7 +19,13 @@ export default function LoginPage() {
           Check your inbox for the login link.
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+        <form
+          method="POST"
+          action="/api/auth/signin/resend"
+          className="mt-6 space-y-4"
+          onSubmit={() => setSent(true)}
+        >
+          <input type="hidden" name="callbackUrl" value="/journal" />
           <input
             type="text"
             required
@@ -53,19 +36,18 @@ export default function LoginPage() {
           />
           <input
             type="email"
+            name="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your email"
             className="w-full rounded-xl border border-[var(--line)] bg-[var(--bg)] px-4 py-2.5 outline-none ring-[var(--accent)] focus:ring-2"
           />
-          {error && <p className="text-sm text-red-600">{error}</p>}
           <button
             type="submit"
-            disabled={loading}
-            className="w-full rounded-xl bg-[var(--accent)] px-5 py-2.5 text-white transition hover:opacity-90 disabled:opacity-60"
+            className="w-full rounded-xl bg-[var(--accent)] px-5 py-2.5 text-white transition hover:opacity-90"
           >
-            {loading ? "Sending…" : "Send login link"}
+            Send login link
           </button>
         </form>
       )}
