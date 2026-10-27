@@ -61,6 +61,12 @@ export async function GET() {
       );
     `);
 
+    await prisma.$executeRawUnsafe(`
+      CREATE TABLE IF NOT EXISTS "ApprovedEmail" (
+        email TEXT PRIMARY KEY
+      );
+    `);
+
     return NextResponse.json({ ok: true, message: "Database tables created" });
   } catch (error) {
     console.error(error);
