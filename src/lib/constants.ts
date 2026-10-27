@@ -7,37 +7,13 @@ export const SITE_DESCRIPTION =
 /** Replace this with your channel URL before running the site. */
 export const YOUTUBE_CHANNEL_URL = "YOUR_YOUTUBE_CHANNEL_URL";
 
-export const NOTE_TYPES = ["blog", "observation", "experience", "data", "trade", "snapshot"] as const;
+export const NOTE_TYPES = ["blog", "news", "strategy", "snapshot", "event"] as const;
 export type NoteType = (typeof NOTE_TYPES)[number];
-
-export const SECTORS = [
-  "Banking",
-  "IT",
-  "Auto",
-  "Pharma",
-  "Energy",
-  "Metals",
-  "FMCG",
-  "Infra",
-] as const;
-export type Sector = (typeof SECTORS)[number];
-
-export const EVENTS = [
-  "Earnings",
-  "Results",
-  "Budget",
-  "RBI Policy",
-  "News",
-  "Technical",
-  "Other",
-] as const;
-export type EventType = (typeof EVENTS)[number];
 
 export const TYPE_LABELS: Record<NoteType, string> = {
   blog: "Blog",
-  observation: "Observation",
-  experience: "Experience",
-  data: "Data",
-  trade: "Trade",
-  snapshot: "Snapshot",
+  news: "News",
+  strategy: "Trading Strategy",
+  snapshot: "Snapshot / Chart",
+  event: "Event",
 };
