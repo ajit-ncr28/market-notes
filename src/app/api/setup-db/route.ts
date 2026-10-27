@@ -5,7 +5,6 @@ const prisma = new PrismaClient();
 
 export async function GET() {
   try {
-    // This will fail if tables don't exist, which is fine for setup
     await prisma.$executeRawUnsafe(`
       CREATE TABLE IF NOT EXISTS "User" (
         id TEXT PRIMARY KEY,
@@ -49,6 +48,16 @@ export async function GET() {
         token TEXT UNIQUE NOT NULL,
         expires TIMESTAMP NOT NULL,
         UNIQUE(identifier, token)
+      );
+    `);
+
+    await prisma.$executeRawUnsafe(`
+      CREATE TABLE IF NOT EXISTS "AccessRequest" (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL,
+        message TEXT,
+        "createdAt" TIMESTAMP DEFAULT NOW()
       );
     `);
 
