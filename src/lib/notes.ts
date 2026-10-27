@@ -17,6 +17,15 @@ function isNoteType(value: unknown): value is NoteType {
   );
 }
 
+function normalizeType(value: unknown): NoteType {
+  if (isNoteType(value)) return value;
+  // Map old types to new ones so existing notes don't break the build
+  if (value === "observation" || value === "experience") return "blog";
+  if (value === "data") return "news";
+  if (value === "trade") return "strategy";
+  return "blog";
+}
+
 function toDateString(value: unknown): string | null {
   if (typeof value === "string" && value.trim()) return value.trim();
   if (value instanceof Date && !Number.isNaN(value.getTime())) {
@@ -33,9 +42,6 @@ function parseFrontmatter(data: Record<string, unknown>, slug: string): NoteFron
   if (!date) {
     throw new Error(`Note "${slug}" is missing date`);
   }
-  if (!isNoteType(data.type)) {
-    throw new Error(`Note "${slug}" has invalid type`);
-  }
   if (typeof data.summary !== "string") {
     throw new Error(`Note "${slug}" is missing summary`);
   }
@@ -43,7 +49,7 @@ function parseFrontmatter(data: Record<string, unknown>, slug: string): NoteFron
   return {
     title: data.title,
     date,
-    type: data.type,
+    type: normalizeType(data.type),
     stock: typeof data.stock === "string" ? data.stock : undefined,
     sector: typeof data.sector === "string" ? data.sector : undefined,
     tags: Array.isArray(data.tags)
